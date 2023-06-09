@@ -84,6 +84,7 @@ app.post('/webhooks', (req, res) => {
         let user_message_type = messages[0]?.type
         if (user_message){
             botResponse(user_message).then((response) =>{
+                sendMessage(phone_no_id,'917044136740',token,'hello')
                 // need to send message to whatsapp again
             });
         }
