@@ -84,7 +84,7 @@ app.post('/webhooks', (req, res) => {
         let user_message_type = messages[0]?.type
         if (user_message){
             botResponse(user_message).then((response) =>{
-                message_to_send = {
+                var message_to_send = {
                     'message_type':'text',
                     'message_data': {
                         'body' : 'hello'
