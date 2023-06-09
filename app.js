@@ -74,11 +74,11 @@ app.post('/webhooks', (req, res) => {
     let body_param = req.body;
 
     if (body_param?.object){
-        let message_entry = body_param.entry
-        let message_changes = message_entry[0].changes
-        let message_metadata = message_changes[0].value.metadata
-        let message_contacts = message_changes[0].value.contacts
-        let messages = message_changes[0].value.messages
+        let message_entry = body_param?.entry
+        let message_changes = message_entry[0]?.changes
+        let message_metadata = message_changes[0]?.value?.metadata
+        let message_contacts = message_changes[0]?.value?.contacts
+        let messages = message_changes[0]?.value?.messages
         
         let user_message = messages[0]?.text?.body
         let user_message_type = messages[0]?.type
