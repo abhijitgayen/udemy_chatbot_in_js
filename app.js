@@ -74,27 +74,24 @@ app.post('/webhooks', (req, res) => {
     let body_param = req.body;
 
     if (body_param?.object){
-        let message_entry = body_param?.entry
-        let message_changes = message_entry[0]?.changes
-        let message_metadata = message_changes[0]?.value?.metadata
-        let message_contacts = message_changes[0]?.value?.contacts
-        let messages = message_changes[0]?.value?.messages
-        
-        let user_message = messages[0]?.text?.body
-        let user_message_type = messages[0]?.type
-        if (user_message){
-            botResponse(user_message).then((response) =>{
-                var message_to_send = {
-                    'message_type':'text',
-                    'message_data': {
-                        'body' : response.message
+        if (body_param?.entry && body_param?.entry[0]?.changes && body_param?.entry[0]?.changes[0]?.value?.messages){
+            let from = body_param.entry[0].changes[0].value.messages[0].from;
+            let msg_id=body_param.entry[0].changes[0].value.messages[0].id;
+            let reply_type= body_param.entry[0].changes[0].value.messages[0].type;
+
+            if(reply_type==='text'){
+                let user_message = body_param.entry[0].changes[0].value.messages[0].text.body;
+                botResponse(user_message).then((response) =>{
+                    var message_to_send = {
+                        'message_type':'text',
+                        'message_data': {
+                            'body' : response.message
+                        }
                     }
-                }
-                sendMessage(phone_no_id,'917044136740',token,message_to_send)
-                // need to send message to whatsapp again
-            });
+                    sendMessage(phone_no_id,from,token,message_to_send)
+                });
+            }
         }
-        console.log('messages',messages);
         res.sendStatus(200);
     }
     else{
