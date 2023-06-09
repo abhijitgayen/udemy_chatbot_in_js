@@ -21,18 +21,16 @@ const axios = require('axios');
 // ]
 //// max length:3
 
+const getSimpleMessageMetaData = (user_mob_number, message_to_send) => {
+    var message_type = message_to_send.message_type
+    var message_data = message_to_send.message_data
 
-
-
-const sendMessage = (phon_no_id,from,token,message_to_send) => {
-    message_type = message_to_send.message_type
-    message_data = message_to_send.message_data
-
-    meta_data = {
+    var  meta_data = {
         "messaging_product": "whatsapp",
         "recipient_type": "individual",
-        "to": from
+        "to": user_mob_number
     }
+
     switch(message_type) {
         case "button":
             meta_data["type"] = "interactive"
@@ -101,19 +99,32 @@ const sendMessage = (phon_no_id,from,token,message_to_send) => {
             "message_id": message_data.message_context_id
         }
     }
-    callWhatsappApi(phon_no_id,token,from,meta_data)
+
+    return meta_data
 }
 
 
-const callWhatsappApi = (phon_no_id,token,meta_data) => {
-    axios({
-        method: "POST",
-        url:"https://graph.facebook.com/v16.0/"+phon_no_id +"/messages?access_token=" +token,
-        data: meta_data,
-        headers: {
-            "Content-Type": "application/json",
+const sendMessage = async(phone_no_id,user_mob_number,token,message_to_send) => {
+
+    var metaData = getSimpleMessageMetaData(user_mob_number, message_to_send)
+    var config = {
+        method: 'post',
+        url: `https://graph.facebook.com/v17.0/${phone_no_id}/messages`,
+        headers: { 
+          'Authorization': `Bearer ${token}`, 
+          'Content-Type': 'application/json'
         },
+        data : metaData
+    };
+
+    axios(config)
+    .then(function (response) {
+    console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+    console.log(error);
     });
+    
 }
 
 module.exports ={
