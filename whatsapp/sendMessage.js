@@ -104,7 +104,7 @@ const getSimpleMessageMetaData = (user_mob_number, message_to_send) => {
 }
 
 
-const sendMessage = async(phone_no_id,user_mob_number,token,message_to_send) => {
+const sendMessage = (phone_no_id,user_mob_number,token,message_to_send) => {
 
     var metaData = getSimpleMessageMetaData(user_mob_number, message_to_send)
     var config = {
