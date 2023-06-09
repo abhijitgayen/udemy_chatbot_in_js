@@ -88,6 +88,7 @@ app.post('/webhooks', (req, res) => {
                             'body' : response.message
                         }
                     }
+                    console.log(user_message,'this is user message');
                     sendMessage(phone_no_id,from,token,message_to_send)
                 });
             }
