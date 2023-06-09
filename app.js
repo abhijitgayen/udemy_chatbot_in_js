@@ -87,7 +87,7 @@ app.post('/webhooks', (req, res) => {
                 var message_to_send = {
                     'message_type':'text',
                     'message_data': {
-                        'body' : 'hello'
+                        'body' : response.message
                     }
                 }
                 sendMessage(phone_no_id,'917044136740',token,message_to_send)
