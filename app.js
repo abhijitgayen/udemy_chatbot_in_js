@@ -42,7 +42,7 @@ app.post('/bot_response', (req, res) =>{
 app.listen(3000, () => {
   console.log('Server started on port 3000');
 });
-//send template message to whatsapp
+
 app.post('/send_template_message', async(req,res)=>{
     const coming_body = req.body
     if (coming_body?.user_mobile_no){
