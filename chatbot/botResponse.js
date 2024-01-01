@@ -10,10 +10,10 @@ const botResponse = async (user_message) => {
     const response = await manager.process(user_message);
     // console.log(response);
     return_response = {
-        "message": response.answer,
-        "intent": response.intent,
-        "score": response.score,
-        "language": response.language
+        "message": response?.answer,
+        "intent": response?.intent,
+        "score": response?.score,
+        "language": response?.language
     }
     return return_response
 }

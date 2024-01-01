@@ -1,12 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const axios = require('axios');
-require("dotenv").config();
-
-const token = process.env.TOKEN
-const myToken = process.env.MYTOKEN;
-const phone_no_id = process.env.PHONE_NO_ID;
-
 
 const path = require('path');
 let initial_path = path.join(__dirname, "chatbot");
